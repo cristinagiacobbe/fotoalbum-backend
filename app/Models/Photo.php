@@ -16,4 +16,9 @@ class Photo extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function evidence(): BelongsTo
+    {
+        return $this->belongsTo(Evidence::class);
+    }
 }
