@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Photo;
 use App\Http\Requests\StorePhotoRequest;
 use App\Http\Requests\UpdatePhotoRequest;
+use App\Models\Category;
+use App\Models\Evidence;
 
 class PhotoController extends Controller
 {
@@ -15,7 +17,8 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        //
+        $photos = Photo::orderByDesc('id')->paginate(10);
+        return view('admin.photos.index', compact('photos'));
     }
 
     /**
@@ -23,7 +26,9 @@ class PhotoController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $evidences = Evidence::all();
+        return view('admin.photos.create', compact('categories', 'evidences'));
     }
 
     /**
