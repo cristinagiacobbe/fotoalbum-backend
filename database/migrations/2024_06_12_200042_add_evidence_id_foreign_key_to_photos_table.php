@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('evidence_id')->nullable()->after('id');
             $table->foreign('evidence_id')
                 ->references('id')
-                ->on('evidences')
+                ->on('evidence')
                 ->nullOnDelete();
         });
     }

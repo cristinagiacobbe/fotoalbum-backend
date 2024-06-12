@@ -19,7 +19,7 @@ class PhotoSeeder extends Seeder
 
         for ($i = 0; $i < 5; $i++) {
             $photo = new Photo();
-            $photo->category_id = $faker->randomElement('$category_ids');
+            $photo->category_id = $faker->randomElement($category_ids);
             $photo->evidence_id = $faker->boolean();
             $photo->title = $faker->words(4, true);
             $photo->description = $faker->paragraph(1, true);
