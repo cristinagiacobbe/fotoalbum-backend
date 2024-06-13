@@ -28,7 +28,7 @@ class PhotoController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.photos.create', compact('categories', 'evidences'));
+        return view('admin.photos.create', compact('categories'));
     }
 
     /**
@@ -38,12 +38,16 @@ class PhotoController extends Controller
     {
         $val_data = $request->validated();
 
-        /*    if ($request->has('cover_image')) { */  //is not a possibility 'cause image is required
+        /*    if ($request->has('image')) { */  //is not a possibility 'cause image is required
         $val_data['image'] = Storage::put('uploads', $request->image);
         /* }; */
+        if ($request->has('in_evidence')) {
+            $val_data['in_evidence'] = 1;
+        }
+
 
         $photos = Photo::create($val_data);
-
+        /*  dd($val_data); */
         return to_route('admin.photos.index')->with('message', 'Your photo has successfully uploaded😄');
     }
 
@@ -62,7 +66,7 @@ class PhotoController extends Controller
     {
         $categories = Category::all();
 
-        return view('admin.photos.edit', compact('photos', 'categories', 'evidences'));
+        return view('admin.photos.edit', compact('photo', 'categories'));
     }
 
     /**
@@ -72,13 +76,17 @@ class PhotoController extends Controller
     {
         $val_data = $request->validated();
 
-        /*  if ($request->has('image')) { */ //is not a possibility 'cause image is required
-        $val_data['image'] = Storage::put('uploads', $request->image);
-        /*    };
- */
+
+
+        if ($request->has('image')) {
+            $val_data['image'] = Storage::put('uploads', $request->image);
+        } else {
+            $val_data['image'] = Storage::put('uploads', $photo->image);
+        }
+
         $photo->update($val_data);
 
-        /*  dd($val_data['technologies']); */
+
 
 
         return to_route('admin.photos.index')->with('message', 'Your photo has successfully updated😄');

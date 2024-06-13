@@ -21,12 +21,6 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'title' => 'required|min:2|max:50',
-            'category_id' => 'nullable|exists:categories,id',
-            'evidence_id' => 'nullable|exists:evidences,id',
-            'description' => 'nullable',
-            'image' => 'required|image|max:500',
-        ];
+        return [];
     }
 }
