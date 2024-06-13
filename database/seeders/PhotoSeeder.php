@@ -23,7 +23,7 @@ class PhotoSeeder extends Seeder
             $photo->title = $faker->words(4, true);
             $photo->description = $faker->paragraph(1, true);
             $photo->image = $faker->imageUrl(640, 400, 'photos', true, $photo->name, 'jpg');
-            $photo->evidence_id = $faker->boolean();
+            $photo->in_evidence = $faker->boolean();
             $photo->save();
         }
     }
