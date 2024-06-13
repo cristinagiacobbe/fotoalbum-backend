@@ -10,15 +10,10 @@ class Photo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'image', 'category_id', 'evidence_id'];
+    protected $fillable = ['category_id', 'title', 'description', 'image', 'in_evidence'];
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
-    }
-
-    public function evidence(): BelongsTo
-    {
-        return $this->belongsTo(Evidence::class);
     }
 }
