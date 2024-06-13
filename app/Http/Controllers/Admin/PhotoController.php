@@ -28,7 +28,6 @@ class PhotoController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $evidences = Evidence::all();
         return view('admin.photos.create', compact('categories', 'evidences'));
     }
 
@@ -62,7 +61,6 @@ class PhotoController extends Controller
     public function edit(Photo $photo)
     {
         $categories = Category::all();
-        $evidences = Evidence::all();
 
         return view('admin.photos.edit', compact('photos', 'categories', 'evidences'));
     }
