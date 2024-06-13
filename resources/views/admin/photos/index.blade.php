@@ -90,7 +90,7 @@
                         </tr>
                     @empty
                         <tr class="">
-                            <td scope="row" colspan="5">No photos uploaded 🙅‍♀️</td>
+                            <td scope="row" colspan="7">No photos uploaded 🙅‍♀️</td>
                         </tr>
                     @endforelse
 

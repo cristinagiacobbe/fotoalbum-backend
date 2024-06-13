@@ -18,7 +18,7 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        $photos = Photo::orderByDesc('id')->paginate(10);
+        $photos = Photo::orderByDesc('id')->where('user_id', auth()->id())->paginate(10);
         return view('admin.photos.index', compact('photos'));
     }
 
@@ -44,7 +44,7 @@ class PhotoController extends Controller
         if ($request->has('in_evidence')) {
             $val_data['in_evidence'] = 1;
         }
-
+        $val_data['user_id'] = auth()->id();
 
         $photos = Photo::create($val_data);
         /*  dd($val_data); */
@@ -64,9 +64,12 @@ class PhotoController extends Controller
      */
     public function edit(Photo $photo)
     {
-        $categories = Category::all();
-
-        return view('admin.photos.edit', compact('photo', 'categories'));
+        if ($photo->user_id == auth()->id()) {
+            $categories = Category::all();
+            return view('admin.photos.edit', compact('photo', 'categories'));
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -74,22 +77,20 @@ class PhotoController extends Controller
      */
     public function update(UpdatePhotoRequest $request, Photo $photo)
     {
-        $val_data = $request->validated();
+        if ($photo->user_id == auth()->id()) {
+            $val_data = $request->validated();
 
+            if ($request->has('image')) {
+                $val_data['image'] = Storage::put('uploads', $request->image);
+            } else {
+                $val_data['image'] = Storage::put('uploads', $photo->image);
+            }
 
-
-        if ($request->has('image')) {
-            $val_data['image'] = Storage::put('uploads', $request->image);
+            $photo->update($val_data);
+            return to_route('admin.photos.index')->with('message', 'Your photo has successfully updated😄');
         } else {
-            $val_data['image'] = Storage::put('uploads', $photo->image);
+            abort(403);
         }
-
-        $photo->update($val_data);
-
-
-
-
-        return to_route('admin.photos.index')->with('message', 'Your photo has successfully updated😄');
     }
 
     /**
@@ -97,9 +98,13 @@ class PhotoController extends Controller
      */
     public function destroy(Photo $photo)
     {
-        Storage::delete($photo->image);
+        if ($photo->user_id == auth()->id()) {
+            Storage::delete($photo->image);
 
-        $photo->delete();
-        return to_route('admin.photos.index')->with('message', 'Your photo has been definitively removed');
+            $photo->delete();
+            return to_route('admin.photos.index')->with('message', 'Your photo has been definitively removed');
+        } else {
+            abort(403);
+        }
     }
 }
