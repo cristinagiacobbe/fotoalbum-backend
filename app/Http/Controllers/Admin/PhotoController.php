@@ -19,6 +19,8 @@ class PhotoController extends Controller
     public function index()
     {
         $photos = Photo::orderByDesc('id')->where('user_id', auth()->id())->paginate(10);
+
+
         return view('admin.photos.index', compact('photos'));
     }
 
@@ -37,6 +39,7 @@ class PhotoController extends Controller
     public function store(StorePhotoRequest $request)
     {
         $val_data = $request->validated();
+        $val_data['user_id'] = auth()->id();
 
         /*    if ($request->has('image')) { */  //is not a possibility 'cause image is required
         $val_data['image'] = Storage::put('uploads', $request->image);
@@ -44,10 +47,10 @@ class PhotoController extends Controller
         if ($request->has('in_evidence')) {
             $val_data['in_evidence'] = 1;
         }
-        $val_data['user_id'] = auth()->id();
+
 
         $photos = Photo::create($val_data);
-        /*  dd($val_data); */
+
         return to_route('admin.photos.index')->with('message', 'Your photo has successfully uploaded😄');
     }
 
@@ -77,6 +80,7 @@ class PhotoController extends Controller
      */
     public function update(UpdatePhotoRequest $request, Photo $photo)
     {
+
         if ($photo->user_id == auth()->id()) {
             $val_data = $request->validated();
 
