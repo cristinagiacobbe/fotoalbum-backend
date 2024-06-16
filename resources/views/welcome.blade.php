@@ -5,10 +5,10 @@
 
 
             <h1 class="display-5 fw-bold text-dark">
-                Let's have a look at my projects! 😉
+                Let's have a look at this photo collection! 😉
             </h1>
 
-            <img width="300" height="200" src="https://picsum.photos/200/300" alt="">
+            <img class="m-4" width="300" height="200" src="https://picsum.photos/200/300" alt="">
 
             <p class="col-md-8 fs-4 text-dark">Do you like photography? Let's have a look to this collection!
             </p>

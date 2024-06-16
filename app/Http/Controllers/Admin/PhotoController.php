@@ -45,9 +45,9 @@ class PhotoController extends Controller
         $val_data['image'] = Storage::put('uploads', $request->image);
         /* }; */
         if ($request->has('in_evidence')) {
-            $val_data['in_evidence'] = 1;
+            $val_data['in_evidence'] = true;
         } else {
-            $val_data['in_evidence'] = 0;
+            $val_data['in_evidence'] = false;
         }
 
         $photos = Photo::create($val_data);

@@ -14,8 +14,7 @@ class PhotoController extends Controller
             return response()->json(
                 [
                     'success' => true,
-                    'results' => Photo::with(['category', 'user'])->where('category_id', $request->search && 'in_evidence', $request->search)->orderByDesc('id')->paginate(),
-
+                    'results' => Photo::with(['category', 'user'])->where('category_id', $request->search && 'in_evidence', '=', "true")->orderByDesc('id')->paginate(),
                 ]
             );
         }
