@@ -38,11 +38,21 @@
             <div class="mb-3">
                 <label for="image" class="form-label"><strong>Image</strong></label>
                 <div>
-                    @include('partials.image_snippet')
+                    {{--   @include('partials.image_snippet') --}}
                 </div>
 
-                <input type="file" class="form-control @error('image')is-invalid @enderror" name="image" id="image"
-                    aria-describedby="helpimage" placeholder="Change or confirm your photo" />
+
+                <div class="d-flex gap-3">
+                    <img width="140" src="{{ asset('storage/' . $photo->image) }}" alt="">
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Upload another cover image</label>
+                        <input type="file" class="form-control" name="image" id="image" placeholder="image"
+                            aria-describedby="ImageHelper" />
+                    </div>
+                </div>
+
+                {{-- <input type="file" class="form-control @error('image')is-invalid @enderror" name="image" id="image"
+                    aria-describedby="helpimage" value="old('image') ?: $photo->image }}" /> --}}
                 {{--  <small id="helpcover_image" class="form-text text-muted">Upload cover_image</small> --}}
 
                 {{-- @error('image')
@@ -64,7 +74,6 @@
             </div>
 
             <button class="btn btn-primary" type="submit">Update</button>
-            <button class="btn btn-danger">Turn back to photos list</button>
 
         </form>
     </div>

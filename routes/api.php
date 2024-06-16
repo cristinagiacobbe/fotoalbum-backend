@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\PhotoController as AdminPhotoController;
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\PhotoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('photos', [PhotoController::class, 'index']);
 Route::get('photos/{photo}', [AdminPhotoController::class, 'show']);
+Route::get('categories', [CategoryController::class, 'index']);

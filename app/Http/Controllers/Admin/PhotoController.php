@@ -46,8 +46,9 @@ class PhotoController extends Controller
         /* }; */
         if ($request->has('in_evidence')) {
             $val_data['in_evidence'] = 1;
+        } else {
+            $val_data['in_evidence'] = 0;
         }
-
 
         $photos = Photo::create($val_data);
 
