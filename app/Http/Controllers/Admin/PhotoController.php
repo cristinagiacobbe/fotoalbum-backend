@@ -41,13 +41,13 @@ class PhotoController extends Controller
         $val_data = $request->validated();
         $val_data['user_id'] = auth()->id();
 
-        /*    if ($request->has('image')) { */  //is not a possibility 'cause image is required
-        $val_data['image'] = Storage::put('uploads', $request->image);
-        /* }; */
+        if ($request->has('image')) {
+            $val_data['image'] = Storage::put('uploads', $request->image);
+        };
         if ($request->has('in_evidence')) {
-            $val_data['in_evidence'] = true;
+            $val_data['in_evidence'] = 1;
         } else {
-            $val_data['in_evidence'] = false;
+            $val_data['in_evidence'] = 0;
         }
 
         $photos = Photo::create($val_data);
@@ -91,6 +91,11 @@ class PhotoController extends Controller
                 $val_data['image'] = Storage::put('uploads', $photo->image);
             }
 
+            if ($request->has('in_evidence')) {
+                $val_data['in_evidence'] = 1;
+            } else {
+                $val_data['in_evidence'] = $photo->in_evidence;
+            }
             $photo->update($val_data);
             return to_route('admin.photos.index')->with('message', 'Your photo has successfully updated😄');
         } else {

@@ -26,7 +26,7 @@ class UpdatePhotoRequest extends FormRequest
             'category_id' => 'nullable|exists:categories,id',
             'evidence_id' => 'nullable|exists:evidences,id',
             'description' => 'nullable',
-            'image' => 'image|max:500',
+            'image' => 'nullable|image|max:500',
         ];
     }
 }

@@ -8,13 +8,13 @@ use App\Models\Photo;
 
 class PhotoController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, $req_evidence)
     {
         if ($request->has('search')) {
             return response()->json(
                 [
                     'success' => true,
-                    'results' => Photo::with(['category', 'user'])->where('category_id', $request->search and 'in_evidence', $request->search)->orderByDesc('id')->paginate(),
+                    'results' => Photo::with(['category', 'user'])->where('category_id', $request->search)->where('in_evidence', $req_evidence->search)->orderByDesc('id')->paginate(),
                 ]
             );
         }
