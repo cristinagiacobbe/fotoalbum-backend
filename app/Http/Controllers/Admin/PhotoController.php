@@ -109,7 +109,11 @@ class PhotoController extends Controller
     public function destroy(Photo $photo)
     {
         if ($photo->user_id == auth()->id()) {
-            Storage::delete($photo->image);
+
+            if ($photo->image) {
+                Storage::delete($photo->image);
+            }
+
 
             $photo->delete();
             return to_route('admin.photos.index')->with('message', 'Your photo has been definitively removed');
