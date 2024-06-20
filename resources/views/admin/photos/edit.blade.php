@@ -69,6 +69,7 @@
                 <div class="form-check ">
                     <input class="form-check-input" type="checkbox" value="in_evidence" id="in_evidence" name="in_evidence"
                         {{ old('in_evidence', $photo->in_evidence) ? 'checked' : '' }} />
+
                     <label class="form-check-label" for="in_evidence">Do you want to put photo in evidence?</label>
                 </div>
             </div>
